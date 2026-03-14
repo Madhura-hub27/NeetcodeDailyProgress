@@ -1,0 +1,62 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+ 
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+ 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+ 
+        while (T-- > 0) {
+ 
+            int N = Integer.parseInt(br.readLine().trim());
+            String[] parts = br.readLine().trim().split(" ");
+            int[] A = new int[N];
+ 
+            for (int i = 0; i < N; i++) {
+                A[i] = Integer.parseInt(parts[i]);
+            }
+ 
+            int minLen = Integer.MAX_VALUE;
+            int count = 0;
+ 
+            for (int L = 0; L < N; L++) {
+ 
+                int orInside = 0;
+ 
+                for (int R = L; R < N; R++) {
+ 
+                    orInside |= A[R];
+ 
+                    int orOutside = 0;
+ 
+                    for (int i = 0; i < L; i++)
+                        orOutside |= A[i];
+ 
+                    for (int i = R + 1; i < N; i++)
+                        orOutside |= A[i];
+ 
+                    if (orInside == orOutside) {
+ 
+                        int len = R - L + 1;
+ 
+                        if (len < minLen) {
+                            minLen = len;
+                            count = 1;
+                        } 
+                        else if (len == minLen) {
+                            count++;
+                        }
+                    }
+                }
+            }
+ 
+            if (count == 0) {
+                System.out.println(-1);
+            } else {
+                System.out.println(minLen + " " + count);
+            }
+        }
+    }
+  }
