@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+
+class TestClass {
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine().trim());
+        char[] arr = br.readLine().trim().toCharArray();
+
+        int numHouses = 0;
+        for (char c : arr) {
+            if (c == 'H') {
+                numHouses++;
+            }
+        }
+        
+        if (numHouses == 0) {
+            System.out.println("NO");
+            return;
+        }
+
+        char[] result = Arrays.copyOf(arr, n);
+        for (int i = 0; i < n; i++) {
+            if (result[i] == '.') {
+                result[i] = 'B';
+            }
+        }
+        
+        System.out.println("YES");
+        System.out.println(new String(result));
+    }
+}
