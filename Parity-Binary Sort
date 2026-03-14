@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+
+        while (T-- > 0) {
+
+            int N = Integer.parseInt(br.readLine().trim());
+            String[] parts = br.readLine().trim().split(" ");
+
+            Integer[] arr = new Integer[N];
+
+            for (int i = 0; i < N; i++) {
+                arr[i] = Integer.parseInt(parts[i]);
+            }
+
+            Arrays.sort(arr, new Comparator<Integer>() {
+                public int compare(Integer a, Integer b) {
+
+                    int bitsA = Integer.bitCount(a);
+                    int bitsB = Integer.bitCount(b);
+
+                    boolean evenA = bitsA % 2 == 0;
+                    boolean evenB = bitsB % 2 == 0;
+
+                    if (evenA && !evenB) return -1;
+                    if (!evenA && evenB) return 1;
+
+                    return a - b;
+                }
+            });
+
+            for (int i = 0; i < N; i++) {
+                System.out.print(arr[i]);
+                if (i < N - 1) System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
+}
